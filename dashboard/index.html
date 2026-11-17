@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div>
+    <h1>Token Radar</h1>
+    <p class="sub">Which protocol is worth farming next — and what to do about it.</p>
+  </div>
+  <div class="stats" id="stats" aria-live="polite"></div>
+</header>
+
+<nav class="tabs" aria-label="Views">
+  <button id="tab-board" class="tab active" type="button">Pre-token board</button>
+  <button id="tab-live" class="tab" type="button">Live tokens</button>
+</nav>
+
+<section class="controls" aria-label="Filter and sort">
+  <label>Search <input id="q" type="search" placeholder="name or slug" autocomplete="off"></label>
+  <label>Category <select id="cat"><option value="">All categories</option></select></label>
+  <label>Chain <select id="chain"><option value="">All chains</option></select></label>
+  <label>Scope <select id="scope">
+    <option value="all">All board rows</option>
+    <option value="watchlist">Watchlist only (40)</option>
+    <option value="early">Early finds only</option>
+  </select></label>
+  <label>Sort <select id="sort">
+    <option value="implied">Implied value ↓</option>
+    <option value="tvl">TVL ↓</option>
+    <option value="growth">7-day change ↓</option>
+    <option value="age">Age ↓</option>
+    <option value="name">Name A–Z</option>
+  </select></label>
+  <button id="reset" type="button">Reset</button>
+</section>
+
+<p class="count" id="count" aria-live="polite"></p>
+
+<main class="layout">
+  <div class="tablewrap">
+    <table id="board">
+      <thead><tr>
+        <th data-k="rank">#</th><th data-k="name">Protocol</th><th data-k="category">Category</th>
+        <th data-k="chains">Chains</th><th data-k="tvl">TVL</th><th data-k="growth">7d</th>
+        <th data-k="age">Age</th><th data-k="implied">Implied value</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="hint">Click any row for its detail view and farm plan. Click a column heading to sort by it.</p>
+  </div>
+  <aside class="detail" id="detail" aria-live="polite"></aside>
+</main>
+
+<section class="method" id="method">
+  <h2>How the implied value is built</h2>
+  <p>Every row is scored by one function, <code>impliedValue</code> in <code>lib/model.ts</code>, from the snapshot's own figures only — no protocol name is ever special-cased:</p>
+  <p class="formula">implied = TVL × 0.25 × growth × maturity × chains</p>
+  <ul>
+    <li><b>TVL × 0.25</b> — the size of the activity a launch would price.</li>
+    <li><b>growth</b> = 1 + clamp(7-day change, −50%, +150%) × 0.6 — momentum, for or against.</li>
+    <li><b>maturity</b> = 0.6 + min(age in days, 1095) / 1095 × 0.4 — how long it has run with no token recorded; unknown age counts as 365 days.</li>
+    <li><b>chains</b> = 1 + 0.03 × min(chain count, 6) — distribution across chains, capped.</li>
+  </ul>
+  <p>“Pre-token” means the snapshot records no token for the protocol (no market cap, no CoinGecko id, no symbol). That is the record, not proof: a protocol on the list may still have a token its record does not carry. The board covers all 40 watchlist protocols, then every other rankable pre-token protocol in the snapshot. Protocols whose token already trades are set apart in the Live tokens tab at the market's own value — never mixed into the ranking. An implied value is this radar's own claim, not a prediction that a token will be issued, or when.</p>
+  <p class="src">Source: DefiLlama protocol snapshot, as of <span id="asof"></span>. Farm steps name a cost and a time each; never pay to claim, and claim only from a link the protocol itself publishes.</p>
+</section>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

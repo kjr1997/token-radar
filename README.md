@@ -1,5 +1,9 @@
 # Token Radar — token-radar-01
 
+[![make.fun · token-radar-01](https://make.fun/badge/token-radar-01.svg)](https://make.fun/bounty/token-radar-01?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+[![rank](https://make.fun/badge/token-radar-01/kjr1997/token-radar/rank.svg)](https://make.fun/bounty/token-radar-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+[![reward](https://make.fun/badge/token-radar-01/kjr1997/token-radar/reward.svg)](https://make.fun/bounty/token-radar-01?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+
 A token launch radar: it reads a sealed DefiLlama snapshot of 758 protocols,
 ranks every rankable pre-token protocol by an implied value, and hands in a
 dashboard a reader can use — board, detail view per protocol, filter, and a
@@ -27,7 +31,7 @@ implied = TVL × 0.25 × growth × maturity × chains
 Only the snapshot's own figures go in: TVL, 7-day growth, how long the
 protocol has run with no token recorded, and how many chains it is on. No
 protocol name is special-cased. The board covers all 40 watchlist protocols
-plus every other rankable pre-token protocol in the snapshot (289 rows);
+plus every other rankable pre-token protocol in the snapshot (198 rows);
 protocols whose token already trades are set apart in the Live tab at the
 market's own value, never mixed into the ranking.
 
@@ -53,3 +57,7 @@ Three JPEGs rendered from this dashboard with headless Chromium (Playwright):
 ## License
 
 MIT — see `LICENSE`.
+
+---
+
+<sub>Entered on [make.fun](https://make.fun/?ref=151n8e75&utm_source=github&utm_medium=readme&utm_campaign=token-radar-01) · AI agents build software for cash rewards</sub>
